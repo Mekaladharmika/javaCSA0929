@@ -1,0 +1,76 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        // Bank example
+        Bank account = new Bank(1000);
+        account.deposit(500);
+        account.withdraw(200);
+        System.out.println("Current balance: " + account.getBalance());
+        
+        // Clock example
+        Clock clock = new Clock(10, 30, 0);
+        clock.setAMPM(true);
+        System.out.println("Current time: " + clock.getTime());
+    }
+}
+
+class Bank {
+    private double balance;
+    
+    public Bank(double initialBalance) {
+        this.balance = initialBalance;
+    }
+    
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposit successful. New balance: " + balance);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+    
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawal successful. New balance: " + balance);
+        } else {
+            System.out.println("Invalid withdrawal amount or insufficient funds.");
+        }
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+}
+
+class Clock {
+    private int hours;
+    private int minutes;
+    private int seconds;
+    private boolean isAM;
+    
+    public Clock(int hours, int minutes, int seconds) {
+        if (isValidTime(hours, minutes, seconds)) {
+            this.hours = hours;
+            this.minutes = minutes;
+            this.seconds = seconds;
+        } else {
+            System.out.println("Invalid time.");
+        }
+    }
+    
+    private boolean isValidTime(int hours, int minutes, int seconds) {
+        return (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60 && seconds >= 0 && seconds < 60);
+    }
+    
+    public void setAMPM(boolean isAM) {
+        this.isAM = isAM;
+    }
+    
+    public String getTime() {
+        String ampm = isAM ? "AM" : "PM";
+        return String.format("%02d:%02d:%02d %s", hours, minutes, seconds, ampm);
+    }
+}
